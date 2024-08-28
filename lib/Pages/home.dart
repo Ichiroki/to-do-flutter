@@ -8,6 +8,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,6 +21,14 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.redAccent,
         title: const Text('To Do List', style: TextStyle(color: Colors.white),),
       ),
+      body: const Padding(
+        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+        child: Row(
+          children: [
+            Text("test")
+          ],
+        ),
+      )
     );
   }
 }

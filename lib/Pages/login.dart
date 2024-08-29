@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'home.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -29,6 +31,7 @@ class _LoginState extends State<Login> {
         print(responsedata);
         if(value.statusCode == 201) {
           print('login success: $responsedata');
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
         } else {
           print('login failed');
         }
@@ -37,9 +40,7 @@ class _LoginState extends State<Login> {
       return res;
     } catch(e) {
       print('Internal server error, please wait : $e');
-      // return http.Response('Internal server error, please wait : $e', 500);
     }
-
   }
 
   @override

@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main () async {
   return runApp(MaterialApp(
-    initialRoute: '/login',
+    initialRoute: '/',
     routes: {
       '/': (context) => const Loading(),
       '/login': (context) => const Login(),
@@ -27,12 +27,25 @@ class _CheckAuthState extends State<CheckAuth> {
 
   void _checkIfLoggedIn() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    
+    var token = localStorage.getString('token');
+
+    if (token != null) {
+      setState(() {
+        isAuth = true;
+      });
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      )
+    );
   }
 
 }

@@ -21,6 +21,28 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.redAccent,
         title: const Text('To Do List', style: TextStyle(color: Colors.white),),
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {
+                
+              }
+            ),
+            ListTile(
+              title: const Text('Item 2'),
+              onTap: () {
+
+              }
+            )
+          ],
+        ),
+      ),
       body: const Padding(
         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: Row(

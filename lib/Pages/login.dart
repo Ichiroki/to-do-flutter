@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 import 'home.dart';
@@ -16,6 +17,8 @@ class _LoginState extends State<Login> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  final storage = FlutterSecureStorage();
+
   void getUser() async {
     try {
       final res = http.post(Uri.parse('http://localhost:3000/api/login'), 
@@ -26,12 +29,14 @@ class _LoginState extends State<Login> {
           'email': emailController.text,
           'password': passwordController.text,
         },
-      )).then((value) {
+      )).then((value) async {
         final Map<String, dynamic> responsedata = jsonDecode(value.body);
-        print(responsedata);
+        final cookie = responsedata['sign'];
+        final csrf = responsedata['csrf'];
         if(value.statusCode == 201) {
-          print('login success: $responsedata');
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
+          await storage.write(key: 'sign', value: cookie);
+          await storage.write(key: 'csrf', value: csrf);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
         } else {
           print('login failed');
         }
@@ -76,8 +81,12 @@ class _LoginState extends State<Login> {
                   return null;
                 },
               ),
-              ElevatedButton(onPressed: getUser, child: const Text('Login'))
-          ],),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: ElevatedButton(onPressed: getUser, child: const Text('Login')),
+              ),
+            ],
+          ),
         ),
       ),
     );

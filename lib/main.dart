@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main () async {
   return runApp(MaterialApp(
-    initialRoute: '/',
+    initialRoute: '/login',
     routes: {
       '/': (context) => const Loading(),
       '/login': (context) => const Login(),

@@ -17,11 +17,13 @@ class _LoginState extends State<Login> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
+
+  String _emailError = '';
+  String _passwordError = '';
 
   void getUser() async {
-    try {
-      final res = http.post(Uri.parse('http://localhost:3000/api/login'), 
+      http.post(Uri.parse('http://localhost:3000/api/login'), 
         headers: {
           'Content-Type': 'application/json'
         },
@@ -36,16 +38,27 @@ class _LoginState extends State<Login> {
         if(value.statusCode == 201) {
           await storage.write(key: 'sign', value: cookie);
           await storage.write(key: 'csrf', value: csrf);
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Home()));
+        } else if (value.statusCode == 422) {
+          setState() {
+            print(responsedata);
+            // _emailError = responsedata['errors'];
+            // final errors = responsedata['errors'] as List<dynamic>;
+            // for( var error in errors ) {
+            //   if(error['field'] == 'email') {
+            //     _emailError = error['message'];
+            //   } else if (error['field'] == 'password') {
+            //     _passwordError = error['message'];
+            //   }
+            // }
+          }
         } else {
-          print('login failed');
+          setState(() {
+            _emailError = "Login failed";
+            _passwordError = "Login failed";
+          });
         }
       });
-
-      return res;
-    } catch(e) {
-      print('Internal server error, please wait : $e');
-    }
   }
 
   @override
@@ -54,12 +67,16 @@ class _LoginState extends State<Login> {
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-          child: Column(children: <Widget>[
-            const Text('Login', style: TextStyle(fontSize: 24),),
-            TextFormField(
+          child: Column(children: [
+            const Text(
+                'Login', 
+                style: TextStyle(fontSize: 24),
+              ),
+              TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email'
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  errorText: _emailError.isEmpty ? null : _emailError
                 ),
                 validator: (value) {
                   if(value == null || value.isEmpty) {
@@ -71,8 +88,9 @@ class _LoginState extends State<Login> {
               TextFormField(
                 obscureText: true,
                 controller: passwordController,
-                decoration: const InputDecoration(
-                  labelText: 'Password'
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  errorText: _passwordError.isEmpty ? null : _passwordError
                 ),
                 validator: (value) {
                   if(value == null || value.isEmpty) {

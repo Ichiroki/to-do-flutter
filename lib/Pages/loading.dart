@@ -11,7 +11,9 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Text('Loading'),
+      body: SafeArea(
+        child: Text('Loading')
+      ),
     );
   }
 }

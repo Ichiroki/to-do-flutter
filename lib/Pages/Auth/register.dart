@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_flutter/API/user.dart';
+import 'package:to_do_list_flutter/API/userAPI.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -75,6 +75,21 @@ class _RegisterState extends State<Register> {
                 child: ElevatedButton(
                   onPressed: () {
                     addUser(emailValue.text, passwordValue.text, usernameValue.text);
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Registration Success'),
+                        content: const Text('We will redirect you to the login page'),
+                        actions: [
+                          TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          }, 
+                          child: const Text('Ok'))
+                        ]
+                      ),
+                    );
                   } , 
                   child: const Text('Register')),
               )

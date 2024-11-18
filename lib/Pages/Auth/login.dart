@@ -49,10 +49,12 @@ class _LoginState extends State<Login> {
                   return null;
                 },
               ),
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              //   child: ElevatedButton(onPressed: getUser, child: const Text('Login')),
-              // ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: ElevatedButton(onPressed: () {
+                  Navigator.pushNamed(context, '/home');
+                }, child: const Text('Login')),
+              ),
               Center(child: Column(
                 children: [
                   const Text('Are you not registered ? '),

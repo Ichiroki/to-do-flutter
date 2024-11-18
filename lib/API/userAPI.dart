@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:to_do_list_flutter/Pages/Auth/login.dart';
 
 Future<void> addUser(String email, String password, String username) async {
   try {

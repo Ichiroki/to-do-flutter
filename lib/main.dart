@@ -1,51 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list_flutter/Pages/home.dart';
 import 'package:to_do_list_flutter/Pages/loading.dart';
-import 'package:to_do_list_flutter/Pages/login.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:to_do_list_flutter/Pages/Auth/login.dart';
+import 'package:to_do_list_flutter/Pages/Auth/register.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main () async {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
   return runApp(MaterialApp(
     initialRoute: '/login',
     routes: {
       '/': (context) => const Loading(),
       '/login': (context) => const Login(),
       '/home': (context) => const Home(),
+      '/register': (context) => const Register(),
     }
   ));
 }
 
-class CheckAuth extends StatefulWidget {
-  const CheckAuth({super.key});
+// class CheckAuth extends StatefulWidget {
+//   const CheckAuth({super.key});
 
-  @override
-  State<CheckAuth> createState() => _CheckAuthState();
-}
+//   @override
+//   State<CheckAuth> createState() => _CheckAuthState();
+// }
 
-class _CheckAuthState extends State<CheckAuth> {
-  bool isAuth = false;
+// class _CheckAuthState extends State<CheckAuth> {
+//   bool isAuth = false;
 
-  void _checkIfLoggedIn() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var token = localStorage.getString('token');
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Scaffold(
+//       body: SafeArea(
+//         child: Center(
+//           child: CircularProgressIndicator(),
+//         )
+//       )
+//     );
+//   }
 
-    if (token != null) {
-      setState(() {
-        isAuth = true;
-      });
-      Navigator.pushReplacementNamed(context, '/home');
-    } else {
-      Navigator.pushReplacementNamed(context, '/login');
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      )
-    );
-  }
-
-}
+// }

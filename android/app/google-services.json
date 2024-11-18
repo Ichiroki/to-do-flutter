@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "484550188197",
+    "project_id": "fir-authlearn-62357",
+    "storage_bucket": "fir-authlearn-62357.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484550188197:android:fea83ea77a9ceb5b8d014c",
+        "android_client_info": {
+          "package_name": "com.toDoList.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484550188197-rn1bgo179dqsbg0d3vmbe5q7emif9rm2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP7_YCRkaiPBjGhCiP70Dq4C6Yu4imc6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484550188197-rn1bgo179dqsbg0d3vmbe5q7emif9rm2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
